@@ -8,15 +8,12 @@ namespace Specflow.Helpers
     public static class RestHelper
     {
         static string baseURL = "https://reqres.in/";
-        public static string registerEndpoint = "api/register";
-        public static string usersEndpoint = "api/users";
-
-        public static string email { get { return "eve.holt@reqres.in"; } }
-        public static string password { get { return "pistol"; } }
+        static readonly string password = "pistol";
+        public static string Password { get { return password; } }
 
         #region POST
 
-        public static (int responseCode, string token, string errorMessage) Post<T1>(string email, string apiEndPoint, [Optional] string password)
+        public static (int responseCode, string token, string errorMessage) Post<T1>([Optional] string password, string registerEndpoint = "api/register", string email = "eve.holt@reqres.in")
         {
             string tokenKey = "token";
             string errorKey = "error";
@@ -24,7 +21,6 @@ namespace Specflow.Helpers
             var client = new RestClient(baseURL);
             var request = new RestRequest(registerEndpoint, Method.POST);
             request.RequestFormat = DataFormat.Json;
-
 
             if (password != null)
             {
@@ -50,21 +46,24 @@ namespace Specflow.Helpers
 
             }
         }
+        #endregion
 
         #region GET
 
-        public static (int responseCode, List<string> names) Get<T>()
+        public static (int responseCode, List<string> names) Get<T>(string userEndpoint = "api/users")
         {
             List<string> usersList = new List<string>();
+            string data = "data";
+            string first_name = "first_name";
 
             var client = new RestClient(baseURL);
-            var request = new RestRequest(usersEndpoint, Method.GET);
+            var request = new RestRequest(userEndpoint, Method.GET);
             var response = client.Execute(request);
             int responseCode = (int)response.StatusCode;
 
             var content = response.Content;
-            var users = JObject.Parse(content)["data"];
-            var names = users.Values("first_name");
+            var users = JObject.Parse(content)[data];
+            var names = users.Values(first_name);
 
             foreach (var name in names)
             {
@@ -73,7 +72,6 @@ namespace Specflow.Helpers
 
             return (responseCode, usersList);
         }
-
         #endregion
     }
 }

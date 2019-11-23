@@ -11,15 +11,15 @@ namespace Specflow.Steps
         [Given(@"Correct data endpoint returns (.*) code I get '(.*)' token")]
         public static void GivenCorrectDataEndpointReturnsCodeIGetToken(int acctualCode, string acctualToken)
         {
-            Assert.AreEqual(RestHelper.Post<string>(RestHelper.email, RestHelper.registerEndpoint, RestHelper.password).responseCode, acctualCode);
-            Assert.AreEqual(RestHelper.Post<string>(RestHelper.email, RestHelper.registerEndpoint, RestHelper.password).token, acctualToken);
+            Assert.AreEqual(RestHelper.Post<string>(RestHelper.Password).responseCode, acctualCode);
+            Assert.AreEqual(RestHelper.Post<string>(RestHelper.Password).token, acctualToken);
         }
 
         [Given(@"Endpoint returns (.*) code and returns error message code '(.*)'")]
         public static void GivenEndpointReturnsCodeAndReturnsErrorMessageCode(int acctualCode, string acctualErrorMessage)
         {
-            Assert.AreEqual(RestHelper.Post<string>(RestHelper.email, RestHelper.registerEndpoint).responseCode, acctualCode);
-            Assert.AreEqual(RestHelper.Post<string>(RestHelper.email, RestHelper.registerEndpoint).errorMessage, acctualErrorMessage);
+            Assert.AreEqual(RestHelper.Post<string>().responseCode, acctualCode);
+            Assert.AreEqual(RestHelper.Post<string>().errorMessage, acctualErrorMessage);
         }
 
         [Given(@"GET endpoint returns (.*) code and list of users")]

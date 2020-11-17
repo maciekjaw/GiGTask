@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace Specflow.Features
+namespace Specflow.API.Features
 {
     using TechTalk.SpecFlow;
     
@@ -61,7 +61,7 @@ namespace Specflow.Features
             if (((testRunner.FeatureContext != null) 
                         && (testRunner.FeatureContext.FeatureInfo.Title != "List users")))
             {
-                global::Specflow.Features.ListUsersFeature.FeatureSetup(null);
+                global::Specflow.API.Features.ListUsersFeature.FeatureSetup(null);
             }
         }
         
